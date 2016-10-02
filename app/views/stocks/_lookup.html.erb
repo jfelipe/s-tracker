@@ -2,41 +2,46 @@
   <h3>Search for stocks</h3>
 
   <%= form_tag search_stocks_path, remote: true, method: :get, id: 'stock-lookup-form' do %>
-    <div class="form-group row no-padding text-center col-md-12">
+    <div class="form-group row no-padding text-center">
       <div class="col-md-10">
         <%= text_field_tag :stock, params[:stock], placeholder: "Stock ticker", autofocus: true, class: "form-control search-box input-lg" %>
       </div>
       <div class="col-md-2">
         <%= button_tag(type: :submit, class: "btn btn-lg btn-success") do %>
-          <i class="fa fa-search"></i>Look up a stock
+          <i class="fa fa-search"></i> Look up a stock
         <% end %>
       </div>
     </div>
   <% end %>
   <%= render 'common/spinner' %>
-  <% if @stock %>
-    <div id="stock-lookup-results" class="well results-block">
-      <strong>Symbol: </strong> <%= @stock.ticker %>
-      <strong>Name: </strong> <%= @stock.name %>
-      <strong>Price: </strong> <%= @stock.price %>
-      <% if current_user.can_add_stock?(@stock.ticker) %>
-      <%= link_to "Add to my Stocks", user_stocks_path(user: current_user,
-                                      stock_ticker: @stock.ticker,
-                                      stock_id: @stock.id ? @stock.id : ''),
-                                      class: 'btn btn-xs btn-success',
-                                      method: :post %>
-      <% else %>
-        <span class="label label-default">
-          Stock can not be added because you have already added
-          <% if !current_user.under_stock_limit? %>
-            10 stocks
+  <div class="row">
+    <div class="col-md-10 col-md-offset-2">
+      <% if @stock %>
+        <div id="stock-lookup-results" class="well results-block">
+          <strong>Symbol: </strong> <%= @stock.ticker %>
+          <strong>Name: </strong> <%= @stock.name %>
+          <strong>Price: </strong> <%= @stock.price %>
+          <% if current_user.can_add_stock?(@stock.ticker) %>
+          <%= link_to "Add to my Stocks", user_stocks_path(user: current_user,
+                                          stock_ticker: @stock.ticker,
+                                          stock_id: @stock.id ? @stock.id : ''),
+                                          class: 'btn btn-xs btn-success',
+                                          method: :post %>
+          <% else %>
+            <span class="label label-default">
+              Stock can not be added because you have already added
+              <% if !current_user.under_stock_limit? %>
+                10 stocks
+              <% end %>
+              <% if current_user.stock_already_added?(@stock.ticker) %>
+                this stock
+              <% end %>
+            </span>
           <% end %>
-          <% if current_user.stock_already_added?(@stock.ticker) %>
-            this stock
-          <% end %>
-        </span>
+        </div>
       <% end %>
     </div>
-  <% end %>
+  </div>
+
   <div id="stock-lookup-errors"></div>
 </div>

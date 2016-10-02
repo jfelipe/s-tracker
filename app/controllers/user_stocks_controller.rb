@@ -1,5 +1,7 @@
 class UserStocksController < ApplicationController
 
+  before_action :set_user_stock, only: [:destroy]
+
   def create
     if params[:stock_id].present?
       @user_stock = UserStock.new(stock_id: params[:stock_id], user: current_user)
@@ -29,6 +31,19 @@ class UserStocksController < ApplicationController
     end
   end
 
+  def destroy
+    @user_stock.destroy
+    respond_to do |format|
+      format.html { redirect_to my_portfolio_path, notice: "Stock was removed from portfolio" }
+      format.json { head :no_content }
+    end
+  end
 
+
+  private
+
+  def set_user_stock
+    @user_stock = UserStock.find(params[:id])
+  end
 
 end
