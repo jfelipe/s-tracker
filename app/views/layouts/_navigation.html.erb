@@ -1,0 +1,17 @@
+<% if current_user %>
+<div class="navbar-collapse collapse navbar-responsive-collapse">
+  <ul class="nav navbar-nav">
+    <li><%= link_to "My portfolio", my_portfolio_path %></li>
+    <li><%= link_to "My profile", edit_registration_path(current_user) %></li>
+  </ul>
+  <ul class="nav navbar-right col-md-4">
+    <li class="col-md-8 user-name text-right">
+      <i class=""><%= gravatar_for(current_user, size: 40) %></i>
+      <%= current_user.full_name.present? ? current_user.full_name : current_user.email %>
+    </li>
+    <li class="col-md-4 logout">
+      <%= link_to "Log out", destroy_user_session_path, class: "btn btn-xs btn-danger", method: :delete %>
+    </li>
+  </ul>
+</div>
+<% end %>
