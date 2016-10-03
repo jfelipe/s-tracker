@@ -1,0 +1,16 @@
+<div class="row well">
+  <div class="col-md-12" style="text-align: center;">
+  <%= gravatar_for(@user, size: 60) %>
+  <p></p>
+  <p><strong>Full Name: </strong><%= @user.full_name %></p>
+  <p><strong>Email: </strong><%= @user.email %></p>
+  </div>
+</div>
+
+<% if @user.stocks.size > 0 %>
+  <%= render 'stocks/list' %>
+<% else %>
+  <p class="lead center">This user is not tracking any stocks</p>
+<% end %>
+
+<%= link_to "Back to my friends", my_friends_path, class: "btn btn-xs btn-primary" %>

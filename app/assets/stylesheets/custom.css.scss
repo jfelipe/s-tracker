@@ -1,3 +1,7 @@
+.center {
+  text-align: center;
+}
+
 .navbar-brand {
   float: left;
   padding: 10px 15px;
@@ -20,7 +24,6 @@
 .user-name {
   padding-top: 5px;
   font-weight: 500;
-  letter-spacing: 1px;
 }
 
 .nav.navbar-right li {
@@ -39,7 +42,7 @@ header {
   color: white;
 }
 header .container {
-  padding-top: 100px;
+  padding-top: 60px;
   padding-bottom: 50px;
 }
 header img {
@@ -62,4 +65,14 @@ header .intro-text .skills {
   font-size: 120px;
   color: #ffbe2c;
   margin-bottom: 10px;
+}
+
+.icon-home {
+  font-size: 120px;
+  color: #2fabb3;
+  margin-bottom: 10px;
+}
+
+.main-container {
+  padding-left: 0px;
 }

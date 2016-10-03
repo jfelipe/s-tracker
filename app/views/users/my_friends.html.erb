@@ -1,1 +1,32 @@
-<h1>My friends</h1>
+<%= render 'friends/lookup' %>
+<% if @friendships.size > 0 %>
+<h4>Following</h4>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @friendships.each do |friend| %>
+        <tr>
+          <td><%= gravatar_for(friend, size: 30)%> <%= friend.full_name %></td>
+          <td><%= friend.email %></td>
+          <td>
+            <%= link_to "View profile", user_path(friend), class: "btn btn-xs" %>
+            <%= link_to "Unfollow", friendship_path(friend),
+              method: :delete,
+              data: {confirm: "Are you sure you want to unfollow this user?"},
+              class: "btn btn=xs btn-danger" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+    <div class="row col-lg-12">
+      <p class="lead">You are not following any user</p>
+    </div>
+<% end %>
