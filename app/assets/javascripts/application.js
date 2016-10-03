@@ -14,3 +14,9 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require_tree .
+
+$(function() {
+   $('.alert').fadeIn('slow', function() {
+      $(this).delay(2500).fadeOut();
+   });
+});
